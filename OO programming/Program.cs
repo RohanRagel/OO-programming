@@ -24,6 +24,9 @@ namespace OO_programming
     /// </summary>
     public class PaySlip
     {
+        /// <summary>
+        /// setting the properties for the PaySlip class
+        /// </summary>
         public PaySlip() { }
         public string EmployeeID { get; set; }
         public string FirstName { get; set; }
@@ -32,6 +35,15 @@ namespace OO_programming
         public string HourlyRate { get; set; }
         public string TaxThreshold { get; set; }
 
+        /// <summary>
+        /// setting the params for the button click event
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="department"></param>
+        /// <param name="hourlyrate"></param>
+        /// <param name="taxthreshold"></param>
         public PaySlip(string employeeID, string firstName, string lastName, string department, string hourlyrate, string taxthreshold)
         {
             EmployeeID = employeeID;
@@ -88,7 +100,9 @@ namespace OO_programming
 
             return data;
         }
-
+        /// <summary>
+        /// appending what appears in the left text box, otherwise will be "OO Programming"
+        /// </summary>
         public string FullEmployeeInfo
         {
             get { return $"{EmployeeID} - {FirstName} {LastName}"; }
@@ -103,8 +117,6 @@ namespace OO_programming
     {
         public static Dictionary<string, decimal> TaxThresholds = new Dictionary<string, decimal>();
 
-        public static object WithThreshold { get; internal set; }
-
         // Method to calculate tax amount based on employee ID
         public virtual decimal CalculateTax(decimal grossPay, string employeeID)
         {
@@ -117,6 +129,12 @@ namespace OO_programming
         }
 
         // Method to calculate gross pay
+        /// <summary>
+        /// calculates the gross pay (hourly rate x hours worked) in the calculator
+        /// </summary>
+        /// <param name="hourlyRate"></param>
+        /// <param name="hoursWorked"></param>
+        /// <returns>tax rate set by the taxratethreshold.csv</returns>
         public virtual decimal CalculateGrossPay(decimal hourlyRate, decimal hoursWorked)
         {
             return hourlyRate * hoursWorked;
@@ -128,7 +146,12 @@ namespace OO_programming
             return grossPay - tax;
         }
 
-        // Method to calculate superannuation
+        /// <summary>
+        /// Method to calculate superannuation
+        /// </summary>
+        /// <param name="grossPay"></param>
+        /// <param name="superannuationRate"></param>
+        /// <returns>11% of the gross pay</returns>
         public virtual decimal CalculateSuperannuation(decimal grossPay, decimal superannuationRate)
         {
             return grossPay * (superannuationRate / 100);
@@ -138,14 +161,21 @@ namespace OO_programming
             return 0; // No tax applied since there's no tax threshold
         }
     }
-
+    /// <summary>
+    /// a class simply to hold the nothreshold class
+    /// </summary>
     public class PayCalculatorNoThreshold : PayCalculator
     {
         // Class to hold the pay calculator nothreshold classes
     }
+    
     public class PayCalculatorWithThreshold : PayCalculator
     {
-        // Override CalculateTax method to apply tax threshold
+        /// <summary>
+        /// Override CalculateTax method to apply tax threshold
+        /// </summary>
+        /// <param name="grossPay"></param>
+        /// <returns>calculates the tax based off the withthreshold.csv</returns>
         public override decimal CalculateTax(decimal grossPay)
         {
             return base.CalculateTax(grossPay); // Use base class tax calculation with threshold applied

@@ -7,9 +7,15 @@ using System.Globalization;
 
 namespace OO_programming
 {
+    /// <summary>
+    /// form 1 class
+    /// </summary>
     public partial class Form1 : Form
     {
-        private decimal hourlyRate;
+        /// <summary>
+        /// tax to parse, called at the bottom of the page in "CalculateTax"
+        /// </summary>
+        public decimal taxtoparse {  get; set; }
         public Form1()
         {
             InitializeComponent();
@@ -24,6 +30,7 @@ namespace OO_programming
                 string[] data = line.Split(','); //If the file is csv this will work
                 if (data.Length >= 6) //number of columns
                 {
+                    
                     // Defining where the below values are located within the CSV
                     PaySlip paySlip = new PaySlip
                     {
@@ -79,7 +86,7 @@ namespace OO_programming
                 }
 
 
-
+                
                 PaySlip selectedEmployee = new PaySlip(employeeID, firstName, lastName, department, hourlyrate, taxthreshold);
                 PayCalculatorNoThreshold calculatorNoThreshold = new PayCalculatorNoThreshold();
                 PayCalculatorWithThreshold calculatorWithThreshold = new PayCalculatorWithThreshold();
@@ -89,6 +96,7 @@ namespace OO_programming
                 // Calculate gross pay, tax, net pay, and superannuation using the selected calculator
                 decimal grossPay = calculatorWithThreshold.CalculateGrossPay(hourlyRate, hoursWorked);
                 decimal tax = TCalc.CalculateTax(grossPay, Flag);
+                taxtoparse = tax;
                 decimal netPay = calculatorWithThreshold.CalculateNetPay(grossPay, tax);
                 decimal superannuation = calculatorWithThreshold.CalculateSuperannuation(grossPay, 11);
 
@@ -128,12 +136,12 @@ namespace OO_programming
 
                 string fileName = $"C:/Users/cc/Downloads/Cl_OOProgramming_AE_Pro_Appx (1)/Part 3 application files/Pay-EmployeeID-Fullname-28.11.csv";
 
-                using (var writer = new StreamWriter(fileName, true))
+                using (var writer = new StreamWriter(fileName, true)) //true appends to the file, so it doesnt replace what is already there
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
                     csv.WriteRecords(new[]
                     {
-                new
+                new //adding the necessary values
                 {
                     EmployeeId = employeeID,
                     FullName = fullName,
@@ -156,26 +164,46 @@ namespace OO_programming
             }
         }
 
-        // Method to calculate gross pay
+        /// <summary>
+        /// Method to calculate gross pay
+        /// </summary>
+        /// <param name="hourlyRate"></param>
+        /// <param name="hoursWorked"></param>
+        /// <returns>hourly rate x hours worked</returns>
         public virtual decimal CalculateGrossPay(decimal hourlyRate, decimal hoursWorked)
         {
             return hourlyRate * hoursWorked;
         }
 
-        // Method to calculate net pay
+        /// <summary>
+        /// Method to calculate net pay
+        /// </summary>
+        /// <param name="grossPay"></param>
+        /// <param name="tax"></param>
+        /// <returns>gross pay - tax</returns>
         public virtual decimal CalculateNetPay(decimal grossPay, decimal tax)
         {
             return grossPay - tax;
         }
 
-        // Method to calculate superannuation
+        /// <summary>
+        /// Method to calculate superannuation
+        /// </summary>
+        /// <param name="grossPay"></param>
+        /// <param name="superannuationRate"></param>
+        /// <returns> -11% of the gross pay</returns>
         public virtual decimal CalculateSuperannuation(decimal grossPay, decimal superannuationRate)
         {
             return grossPay * (superannuationRate / 100);
         }
+        /// <summary>
+        /// submits the tax calculation into the .csv file 
+        /// </summary>
+        /// <param name="grossPay"></param>
+        /// <returns></returns>
         public virtual decimal CalculateTax(decimal grossPay)
         {
-            return 0; // No tax applied since there's no tax threshold
+            return taxtoparse; 
         }
 
         // Add code below to complete the implementation for saving the

@@ -8,6 +8,10 @@ namespace OO_programming
 {
     public class CSVHelper
     {
+        /// <summary>
+        /// this is to parse the csv file through the file path
+        /// </summary>
+        /// <param name="filePath"></param>
         public void ParseCsvFile(string filePath)
         {
             using (var reader = new StreamReader(filePath))

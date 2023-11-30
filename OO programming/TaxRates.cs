@@ -5,10 +5,14 @@ using System.IO;
 
 namespace OO_programming
 {
+    /// <summary>
+    /// public class taxrate
+    /// </summary>
     public class TaxRate
     {
         private List<TaxRate> taxRatesWithThreshold;
         private List<TaxRate> taxRatesNoThreshold;
+
 
         public decimal LowerBound { get; set; }
         public decimal UpperBound { get; set; }
@@ -17,7 +21,12 @@ namespace OO_programming
         public decimal grosspaylocal {  get; set; }
         public decimal result { get; set; }
 
-
+        /// <summary>
+        /// this is the calculate tax method
+        /// </summary>
+        /// <param name="grossPay"></param>
+        /// <param name="hasThreshold"></param>
+        /// <returns>returns tax</returns>
         public decimal CalculateTax(decimal grossPay, bool hasThreshold)
         {
             TaxRate taxRateCalculator = new TaxRate();
@@ -60,12 +69,19 @@ namespace OO_programming
            return result;
 
         }
-
+        /// <summary>
+        /// Loading the taxrates for when the filepath is called, withthreshold
+        /// </summary>
+        /// <param name="filePath"></param>
         public void LoadTaxRatesWithThreshold(string filePath)
         {
             taxRatesWithThreshold = ReadTaxRates(filePath);
             
         }
+        /// <summary>
+        /// Loading the taxrates for when the filepath is called, nothreshold
+        /// </summary>
+        /// <param name="filePath"></param>
         public void LoadTaxRatesNoThreshold(string filePath)
         {
             taxRatesNoThreshold = ReadTaxRates(filePath);

@@ -4,3 +4,9 @@ EmployeeId,FullName,HoursWorked,HourlyRate,TaxThreshold,GrossPay,Tax,NetPay,Supe
 1,Marge Larkin,20,25,Y,500,0,500,55.00
 EmployeeId,FullName,HoursWorked,HourlyRate,TaxThreshold,GrossPay,Tax,NetPay,Superannuation
 4,Mary Sue,30,30,N,900,0,900,99.00
+EmployeeId,FullName,HoursWorked,HourlyRate,TaxThreshold,GrossPay,Tax,NetPay,Superannuation
+2,Mindy Boss,20,25,N,500,0,500,55.00
+EmployeeId,FullName,HoursWorked,HourlyRate,TaxThreshold,GrossPay,Tax,NetPay,Superannuation
+6,Mohammad Hassan,38,40,Y,1520,0,1520,167.20
+EmployeeId,FullName,HoursWorked,HourlyRate,TaxThreshold,GrossPay,Tax,NetPay,Superannuation
+4,Mary Sue,20,30,N,600,145,455,66.00
